@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up</title>
+  </head>
+  <body>
+    <h1>Sign-up page</h1>
+    <form action="/signup" method="post">
+      <label for="name"
+        >Full Name:
+        <input type="text" name="name" id="name" maxlength="50" required
+      /></label>
+      <label for="username">
+        Username:
+        <input
+          type="text"
+          name="username"
+          id="username"
+          maxlength="50"
+          required
+        />
+      </label>
+      <label for="password"
+        >Password:
+        <input
+          type="password"
+          name="password"
+          id="password"
+          maxlength="64"
+          required
+      /></label>
+      <label for="confirm"
+        >Confirm Password:
+        <input
+          type="password"
+          name="confirm"
+          id="confirm"
+          maxlength="64"
+          required
+      /></label>
+      <button type="submit">Sign Up</button>
+    </form>
+  </body>
+</html>
