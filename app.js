@@ -5,11 +5,15 @@ require("dotenv").config();
 const session = require("express-session");
 const pgSession = require("connect-pg-simple")(session);
 const pool = require("./database/pool");
+const passport = require("passport");
+const passportInit = require("./auth/passport");
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
+
+// Express session
 app.use(
   session({
     secret: process.env.SECRET,
@@ -25,6 +29,10 @@ app.use(
     }),
   })
 );
+
+passportInit(passport);
+app.use(passport.session());
+
 app.use(router);
 
 app.listen(3000, (error) => {
