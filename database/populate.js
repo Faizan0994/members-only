@@ -18,10 +18,12 @@ CREATE TABLE IF NOT EXISTS posts(
   title VARCHAR (100),
   message VARCHAR (250),
   author_id INTEGER,
-  time TIMESTAMPTZ
+  time TIMESTAMPTZ DEFAULT NOW()
 );
 
 INSERT INTO users (name, username, password, admin, member) VALUES ('Akif Emir', 'akif1234', 1234, FALSE, FALSE);
+
+INSERT INTO posts(title, message, author_id) VALUES ('Are people on internet real?', 'Everyone I ever met online may have been a chatbot or something, I will never know for sure.', 1);
 `;
 
 async function main() {
