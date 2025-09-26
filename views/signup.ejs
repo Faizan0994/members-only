@@ -7,10 +7,23 @@
   </head>
   <body>
     <h1>Sign-up page</h1>
+    <% if (errors){%>
+    <ul>
+      <% errors.forEach(error => { %>
+      <li><%= error.msg %></li>
+      <% }) %>
+    </ul>
+    <% } %>
     <form action="/signup" method="post">
       <label for="name"
         >Full Name:
-        <input type="text" name="name" id="name" maxlength="50" required
+        <input
+          type="text"
+          name="name"
+          id="name"
+          maxlength="50"
+          value="<%= name || ''%>"
+          required
       /></label>
       <label for="username">
         Username:
@@ -19,6 +32,7 @@
           name="username"
           id="username"
           maxlength="50"
+          value="<%= username || ''%>"
           required
         />
       </label>
@@ -29,6 +43,7 @@
           name="password"
           id="password"
           maxlength="64"
+          value="<%= password || ''%>"
           required
       /></label>
       <label for="confirm"
@@ -38,6 +53,7 @@
           name="confirm"
           id="confirm"
           maxlength="64"
+          value="<%= confirm || ''%>"
           required
       /></label>
       <button type="submit">Sign Up</button>
