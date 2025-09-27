@@ -12,7 +12,7 @@ router.post("/signup", controller.signupPost);
 router.post("/logout", controller.logoutPost);
 router.get("/create-message", controller.createMessageGet);
 router.post("/create-message", controller.createMessagePost);
-router.post("/:id/delete-message", (req, res) => {});
+router.post("/:id/delete-message", controller.deleteMessage);
 router.get("/membership", controller.membershipGet);
 router.post("/membership", controller.membershipPost);
 

@@ -160,3 +160,13 @@ exports.membershipPost = async (req, res) => {
   }
   res.redirect("membership");
 };
+
+exports.deleteMessage = async (req, res) => {
+  const id = +req.params.id;
+  try {
+    await queries.deletePost(id);
+    res.redirect("/");
+  } catch {
+    res.status(500).send("an unexpected error occured");
+  }
+};

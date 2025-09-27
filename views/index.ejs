@@ -29,6 +29,11 @@
           <p><%=post.name%></p>
           <p><%=post.time%></p>
           <p><%=post.message%></p>
+          <% if(user.admin){ %>
+          <form action="/<%=post.id%>/delete-message" method="post">
+            <button type="submit">Delete</button>
+          </form>
+          <% } %>
         </div>
       <% }) %>
     <% } %>

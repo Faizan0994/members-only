@@ -4,6 +4,7 @@ exports.getAllposts = async () => {
   const { rows } = await pool.query(`SELECT 
                                     posts.title,
                                     posts.message,
+                                    posts.id,
                                     posts.time,
                                     users.name
                                     FROM posts
@@ -26,4 +27,8 @@ exports.makeMember = async (id) => {
       WHERE id = $1;`,
     [id]
   );
+};
+
+exports.deletePost = async (id) => {
+  await pool.query("DELETE FROM posts WHERE id = $1", [id]);
 };
