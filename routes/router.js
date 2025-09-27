@@ -13,7 +13,7 @@ router.post("/logout", controller.logoutPost);
 router.get("/create-message", controller.createMessageGet);
 router.post("/create-message", controller.createMessagePost);
 router.post("/:id/delete-message", (req, res) => {});
-router.get("/membership", (req, res) => {});
-router.post("/membership", (req, res) => {});
+router.get("/membership", controller.membershipGet);
+router.post("/membership", controller.membershipPost);
 
 module.exports = router;

@@ -66,7 +66,7 @@ exports.signupPost = [
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      res.render("signup", {
+      return res.render("signup", {
         name: name,
         username: username,
         password: password,
@@ -132,7 +132,7 @@ exports.createMessagePost = [
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      res.render("post", {
+      return res.render("post", {
         errors: errors.array(),
         title: title,
         message: message,
@@ -147,3 +147,16 @@ exports.createMessagePost = [
     }
   },
 ];
+
+exports.membershipGet = (req, res) => {
+  res.render("membership");
+};
+
+exports.membershipPost = async (req, res) => {
+  const phrase = req.body.membership.trim().toLowerCase();
+  if (phrase === "i like cats") {
+    await queries.makeMember(req.user.id);
+    return res.redirect("/");
+  }
+  res.redirect("membership");
+};

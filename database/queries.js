@@ -18,3 +18,12 @@ exports.savePost = async (title, message, id) => {
     [title, message, id]
   );
 };
+
+exports.makeMember = async (id) => {
+  await pool.query(
+    `UPDATE users
+      SET member = true
+      WHERE id = $1;`,
+    [id]
+  );
+};

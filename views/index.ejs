@@ -9,6 +9,9 @@
     <h1>Welcome!</h1>
     <% if(user) {%>
     <p>logged in</p>
+    <% if(!user.member) {%>
+      <a href="/membership"><button>Become a member</button></a>
+    <% } %>
     <form action="/logout" method="post">
       <button type="submit">Logout</button>
     </form>
@@ -29,7 +32,7 @@
         </div>
       <% }) %>
     <% } %>
-    <% if(user) {%>
+    <% if(user && user.member) {%>
     <a href="/create-message"><button>Create Post</button></a>
     <%}%>
   </body>
