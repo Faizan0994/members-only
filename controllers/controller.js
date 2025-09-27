@@ -2,6 +2,7 @@ const passport = require("passport");
 const pool = require("../database/pool");
 const bcrypt = require("bcryptjs");
 const { body, validationResult } = require("express-validator");
+const queries = require("../database/queries");
 
 function isAuthenticated(req, res, next) {
   // Not currently in use
@@ -40,6 +41,21 @@ const validator = [
     .withMessage("Passwords do not match"),
 ];
 
+const postValidator = [
+  body("title")
+    .trim()
+    .notEmpty()
+    .withMessage("A post must have a title")
+    .isLength({ max: 50 })
+    .withMessage("title cannot be more than 50 characters long"),
+  body("message")
+    .trim()
+    .notEmpty()
+    .withMessage("A post must have a message")
+    .isLength({ max: 200 })
+    .withMessage("title cannot be more than 200 characters long"),
+];
+
 exports.signupPost = [
   validator,
   async (req, res) => {
@@ -76,8 +92,9 @@ exports.loginPost = passport.authenticate("local", {
   failureRedirect: "/login",
 });
 
-exports.index = (req, res) => {
-  res.render("index", { user: req.user });
+exports.index = async (req, res) => {
+  const posts = await queries.getAllposts();
+  res.render("index", { user: req.user, posts: posts });
 };
 
 exports.logoutPost = (req, res, next) => {
@@ -102,3 +119,31 @@ exports.signupGet = (req, res) => {
 exports.loginGet = (req, res) => {
   res.render("login");
 };
+
+exports.createMessageGet = (req, res) => {
+  res.render("post", { errors: null, title: null, message: null });
+};
+
+exports.createMessagePost = [
+  postValidator,
+  async (req, res) => {
+    const { title, message } = req.body;
+    const id = req.user.id;
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      res.render("post", {
+        errors: errors.array(),
+        title: title,
+        message: message,
+      });
+    }
+
+    try {
+      await queries.savePost(title, message, id);
+      res.redirect("/");
+    } catch (err) {
+      res.status(500).send("An unexpected error occured");
+    }
+  },
+];

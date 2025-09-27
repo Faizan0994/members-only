@@ -17,5 +17,20 @@
     <a href="/signup"><button>Signup</button></a>
 
     <% } %>
+
+    <% if(posts) { %>
+      <div class="posts">
+      <% posts.forEach(post => { %>
+        <div class="post">
+          <h2><%=post.title%></h2>
+          <p><%=post.name%></p>
+          <p><%=post.time%></p>
+          <p><%=post.message%></p>
+        </div>
+      <% }) %>
+    <% } %>
+    <% if(user) {%>
+    <a href="/create-message"><button>Create Post</button></a>
+    <%}%>
   </body>
 </html>
